@@ -27,7 +27,6 @@ class _HomePageState extends State<HomePage> {
                   shrinkWrap: true,
                   itemCount: snapshot.data!.length,
                   itemBuilder: (BuildContext, index) {
-                    //print(snapshot.data?[index].photo?.constructImageUrl());
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Card(
@@ -58,11 +57,7 @@ class _HomePageState extends State<HomePage> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                                // SizedBox(
-                                //   height: 10,
-                                // ),
                                 Row(
-                                  //crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Expanded(
@@ -80,10 +75,8 @@ class _HomePageState extends State<HomePage> {
                                                       ))
                                                   .toList()),
                                     ),
-
                                     if (snapshot.data?[index].rating != null)
-                                      Container(
-                                        // color: Colors.grey.withOpacity(0.1),
+                                       Container(
                                         alignment: Alignment.center,
                                         padding: EdgeInsets.all(3),
                                         child: Text(
@@ -98,27 +91,7 @@ class _HomePageState extends State<HomePage> {
                                             color:
                                                 Colors.green.withOpacity(0.5)),
                                       )
-                                    // else
-                                    //   Visibility(
-                                    //       visible: true,
-                                    //       child: Container(child: null)),
 
-                                    // Container(
-                                    //   //color: Colors.grey.withOpacity(0.1),
-                                    //   alignment: Alignment.center,
-                                    //   padding: EdgeInsets.all(3),
-
-                                    //   child: Text(
-                                    //     snapshot.data?[index].rating != null
-                                    //         ? snapshot.data![index].rating
-                                    //             .toString()
-                                    //         : "",
-                                    //     style: TextStyle(
-                                    //         fontWeight: FontWeight.bold),
-                                    //   ),
-                                    //   decoration: BoxDecoration(
-                                    //       color: Colors.grey.withOpacity(0.5)),
-                                    // )
                                   ],
                                 )
                               ],
