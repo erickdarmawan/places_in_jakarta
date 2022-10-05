@@ -1,4 +1,5 @@
 // import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:places_in_jakarta/remote_service.dart';
 import 'package:places_in_jakarta/model/places.dart';
@@ -37,14 +38,7 @@ class _HomePageState extends State<HomePage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               // crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                snapshot.data?[index].photo != null
-                                    ? Image(
-                                        height: 300,
-                                        image: NetworkImage(snapshot
-                                            .data![index].photo!
-                                            .constructImageUrl()))
-                                    : Image.asset('asset/placeholderImage.png',
-                                        height: 300),
+                                getImage(snapshot.data?[index].photo),
                                 SizedBox(
                                   height: 5,
                                 ),
@@ -62,36 +56,14 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                     Expanded(
                                       child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children:
-                                              snapshot.data![index].categories
-                                                  .map((cat) => Container(
-                                                        // height: 265,
-                                                        // alignment: Alignment.center,
-                                                        child: Text(
-                                                          cat.name,
-                                                        ),
-                                                      ))
-                                                  .toList()),
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: getCategories(
+                                            snapshot.data![index].categories),
+                                      ),
                                     ),
                                     if (snapshot.data?[index].rating != null)
-                                       Container(
-                                        alignment: Alignment.center,
-                                        padding: EdgeInsets.all(3),
-                                        child: Text(
-                                          snapshot.data?[index].rating != null
-                                              ? snapshot.data![index].rating
-                                                  .toString()
-                                              : '',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        decoration: BoxDecoration(
-                                            color:
-                                                Colors.green.withOpacity(0.5)),
-                                      )
-
+                                      getRating(snapshot.data?[index].rating),
                                   ],
                                 )
                               ],
@@ -106,6 +78,34 @@ class _HomePageState extends State<HomePage> {
           return Text('....');
         },
       ),
+    );
+  }
+
+  getImage(Photo? photo) {
+    return photo != null
+        ? Image(height: 300, image: NetworkImage(photo!.constructImageUrl()))
+        : Image.asset('asset/placeholderImage.png', height: 300);
+  }
+
+  getCategories(List<PlaceCategory> categories) {
+    return categories
+        .map((cat) => Container(
+              child: Text(
+                cat.name,
+              ),
+            ))
+        .toList();
+  }
+
+  getRating(double? rating) {
+    return Container(
+      alignment: Alignment.center,
+      padding: EdgeInsets.all(3),
+      child: Text(
+        rating != null ? rating.toString() : '',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      decoration: BoxDecoration(color: Colors.green.withOpacity(0.5)),
     );
   }
 }
