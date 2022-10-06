@@ -16,6 +16,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.cyanAccent.withOpacity(0.2),
         title: Text('Places in Jakarta'),
         centerTitle: true,
       ),
@@ -75,19 +76,21 @@ class _HomePageState extends State<HomePage> {
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
           }
-          return Text('....');
+          return CircularProgressIndicator(
+            color: Colors.blueGrey,
+          );
         },
       ),
     );
   }
 
-  getImage(Photo? photo) {
+  Image getImage(Photo? photo) {
     return photo != null
         ? Image(height: 300, image: NetworkImage(photo!.constructImageUrl()))
         : Image.asset('asset/placeholderImage.png', height: 300);
   }
 
-  getCategories(List<PlaceCategory> categories) {
+  List<Container> getCategories(List<PlaceCategory> categories) {
     return categories
         .map((cat) => Container(
               child: Text(
@@ -97,7 +100,7 @@ class _HomePageState extends State<HomePage> {
         .toList();
   }
 
-  getRating(double? rating) {
+  Container getRating(double? rating) {
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.all(3),
