@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 
 class Place {
   String name;
-  //List<Photo?> photo;
   Photo? photo;
   double? rating;
   List<PlaceCategory> categories;
