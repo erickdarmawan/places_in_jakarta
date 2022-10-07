@@ -16,6 +16,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade900,
       appBar: AppBar(
         backgroundColor: Colors.cyanAccent.withOpacity(0.2),
         title: Text('Places in Jakarta'),
@@ -45,6 +46,9 @@ class _HomePageState extends State<HomePage> {
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: getName(snapshot.data![index].name),
+                                ),
+                                SizedBox(
+                                  height: 5,
                                 ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -91,12 +95,25 @@ class _HomePageState extends State<HomePage> {
         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold));
   }
 
-  List<Container> getCategories(List<PlaceCategory> categories) {
+  List<Row> getCategories(List<PlaceCategory> categories) {
     return categories
-        .map((cat) => Container(
-              child: Text(
-                cat.name,
-              ),
+        .map((cat) => Row(
+              children: [
+                Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    image: DecorationImage(
+                        image: NetworkImage(cat.icon.constructIcon()),
+                        fit: BoxFit.fill),
+                  ),
+                ),
+                SizedBox(width: 6),
+                Text(
+                  cat.name,
+                ),
+              ],
             ))
         .toList();
   }

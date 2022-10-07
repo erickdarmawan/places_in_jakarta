@@ -6,8 +6,12 @@ class Place {
   Photo? photo;
   double? rating;
   List<PlaceCategory> categories;
-
-  Place(this.name, this.photo, this.rating, this.categories);
+  Place(
+    this.name,
+    this.photo,
+    this.rating,
+    this.categories,
+  );
 }
 
 class Photo {
@@ -30,4 +34,8 @@ class IconMap {
   String prefix;
   String suffix;
   IconMap(this.prefix, this.suffix);
+
+  String constructIcon() {
+    return prefix + '44' + suffix;
+  }
 }

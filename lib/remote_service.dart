@@ -31,6 +31,7 @@ class callService {
         }
 
         List<PlaceCategory> categories = [];
+
         if (result['categories'] != null) {
           for (var categoryResult in result['categories']) {
             IconMap iconMap = IconMap(categoryResult['icon']['prefix'],
