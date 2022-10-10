@@ -1,10 +1,12 @@
+import 'dart:html';
+
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:places_in_jakarta/model/model.dart';
 
 class callService {
-  Future<List<Place>> callNetwork() async {
+  Future<List<Place>> getPlaceList() async {
     Map<String, String> requestHeaders = {
       'Authorization': 'fsq3Tz0b7lh6LtcyoIl2kbZFHMuAxGaAXs9veBuPglC2LU8='
     };
@@ -42,14 +44,42 @@ class callService {
           }
         }
 
-        var place = Place(result['name'], photo, result['rating'], categories);
-        // if (result.photos) {
-        //   placeList.add(place);
+        // for (var locate in result['location']) {
+        //   var crossStreet = result['cross_street'];
+        //   if (crossStreet.isNotEmpty) {
+        //     crossStreet.add(locate);
+        //     Location _location = Location(
+        //         locate['address'],
+        //         locate['country'],
+        //         locate['cross street'],
+        //         locate['formatted address'],
+        //         locate['locality'],
+        //         locate['neighorhood'],
+        //         locate['postcode'],
+        //         locate['region']);
+        //     GetPlaceDetails getPlaceDetails =
+        //         GetPlaceDetails(locate['fsq_id'], locate['location']);
+        //     // placeDetails.add(getPlaceDetails);
+        //   }
         // }
+
+        // var locate = Location(
+        //     result['address'],
+        //     result['country'],
+        //     result['cross_street'],
+        //     result['formatted_address'],
+        //     result['locality'],
+        //     result['neighborhood'],
+        //     result['postcode'],
+        //     result['region']);
+
+        var place = Place(result['name'], photo, result['rating'], categories,
+            result['fsq_id'], result['link'], result['location']);
 
         placeList.add(place);
       }
-      print(placeList.map((e) => e.name));
+      // print(placeList.map((e) => e.name));
+
       return placeList;
     } else {
       return [];

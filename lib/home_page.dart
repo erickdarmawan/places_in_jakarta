@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:places_in_jakarta/remote_service.dart';
 import 'package:places_in_jakarta/model/places.dart';
+import 'page/detail_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       body: FutureBuilder<List<Place>>(
-        future: callService().callNetwork(),
+        future: callService().getPlaceList(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Center(
@@ -57,10 +58,8 @@ class _HomePageState extends State<HomePage> {
                                       child: Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
-                                        children:
-                                            //Image(image: NetworkImage(snapshot.data![index].iconMap.)),
-                                            getCategories(snapshot
-                                                .data![index].categories),
+                                        children: getCategories(
+                                            snapshot.data![index].categories),
                                       ),
                                     ),
                                     if (snapshot.data?[index].rating != null)
@@ -130,3 +129,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+// void selectedItem(BuildContext context, int index) {
+//   switch (index) {
+//     case 1:
+//       Navigator.of(context)
+//           .push(MaterialPageRoute(builder: (context) => DetailPage()));
+//   }
+// }

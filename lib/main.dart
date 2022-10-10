@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:places_in_jakarta/page/detail_page.dart';
 import 'home_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(
+    routes: {
+      'home_page': (context) => const HomePage(),
+      'detail_page': (context) => DetailPage()
+    },
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -17,6 +23,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const HomePage(),
+      routes: {
+        'detail_page': (context) => DetailPage(),
+      },
     );
   }
 }
