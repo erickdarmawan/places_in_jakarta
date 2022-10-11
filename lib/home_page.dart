@@ -1,10 +1,7 @@
 // import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:places_in_jakarta/remote_service.dart';
 import 'package:places_in_jakarta/model/places.dart';
-import 'page/detail_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -24,7 +21,7 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       body: FutureBuilder<List<Place>>(
-        future: callService().getPlaceList(),
+        future: RemoteService().getPlaceList(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Center(
@@ -44,9 +41,24 @@ class _HomePageState extends State<HomePage> {
                                 SizedBox(
                                   height: 5,
                                 ),
+                                // Align(
+                                //   alignment: Alignment.centerLeft,
+                                //   child: getName(snapshot.data![index].name),
+                                // ),
                                 Align(
                                   alignment: Alignment.centerLeft,
-                                  child: getName(snapshot.data![index].name),
+                                  child: TextButton(
+                                    child: getName(snapshot.data![index].name),
+                                    style: ButtonStyle(
+                                      foregroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              Colors.black),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.pushNamed(
+                                          context, '/detail_page');
+                                    },
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 5,

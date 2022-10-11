@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:places_in_jakarta/page/detail_page.dart';
+import 'package:places_in_jakarta/remote_service.dart';
 import 'home_page.dart';
 
 void main() {
-  runApp(MaterialApp(
-    routes: {
-      'home_page': (context) => const HomePage(),
-      'detail_page': (context) => DetailPage()
-    },
-  ));
+  runApp(const MyApp());
+  // RemoteService().getPlaceDetails('4e2a764d7d8b7deda6c627e7');
 }
 
 class MyApp extends StatelessWidget {
@@ -24,7 +21,8 @@ class MyApp extends StatelessWidget {
       ),
       home: const HomePage(),
       routes: {
-        'detail_page': (context) => DetailPage(),
+        '/home_page': (context) => HomePage(),
+        '/detail_page': (context) => DetailPage(),
       },
     );
   }

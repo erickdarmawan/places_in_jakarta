@@ -1,11 +1,9 @@
-import 'dart:html';
-
-import 'package:flutter/foundation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:places_in_jakarta/model/model.dart';
 
-class callService {
+class RemoteService {
   Future<List<Place>> getPlaceList() async {
     Map<String, String> requestHeaders = {
       'Authorization': 'fsq3Tz0b7lh6LtcyoIl2kbZFHMuAxGaAXs9veBuPglC2LU8='
@@ -18,6 +16,8 @@ class callService {
 
     if (response.statusCode == 200) {
       var place = json.decode(response.body);
+
+      //print(place);
       var results = place['results'] as List;
       List<Place> placeList = [];
 
@@ -44,45 +44,63 @@ class callService {
           }
         }
 
-        // for (var locate in result['location']) {
-        //   var crossStreet = result['cross_street'];
-        //   if (crossStreet.isNotEmpty) {
-        //     crossStreet.add(locate);
-        //     Location _location = Location(
-        //         locate['address'],
-        //         locate['country'],
-        //         locate['cross street'],
-        //         locate['formatted address'],
-        //         locate['locality'],
-        //         locate['neighorhood'],
-        //         locate['postcode'],
-        //         locate['region']);
-        //     GetPlaceDetails getPlaceDetails =
-        //         GetPlaceDetails(locate['fsq_id'], locate['location']);
-        //     // placeDetails.add(getPlaceDetails);
-        //   }
-        // }
-
-        // var locate = Location(
-        //     result['address'],
-        //     result['country'],
-        //     result['cross_street'],
-        //     result['formatted_address'],
-        //     result['locality'],
-        //     result['neighborhood'],
-        //     result['postcode'],
-        //     result['region']);
-
-        var place = Place(result['name'], photo, result['rating'], categories,
-            result['fsq_id'], result['link'], result['location']);
-
+        var place = Place(
+          result['name'], photo, result['rating'], categories,
+          result['fsq_id'],
+          // result['link'],
+          // result['location']
+        );
         placeList.add(place);
       }
-      // print(placeList.map((e) => e.name));
 
+      // print(placeList.map((e) => e.name));
       return placeList;
     } else {
       return [];
     }
+  }
+
+  Future<PlaceDetails?> getPlaceDetails(
+    String fsq_id,
+  ) async {
+    var client = http.Client();
+    var uri = Uri.parse('https://api.foursquare.com/v3/places/${fsq_id}');
+    Map<String, String> requestHeaders = {
+      'Authorization': 'fsq3Tz0b7lh6LtcyoIl2kbZFHMuAxGaAXs9veBuPglC2LU8='
+    };
+    var response = await client.get(uri, headers: requestHeaders);
+    PlaceDetails? placeDetails;
+
+    if (response.statusCode == 200) {
+      var detail = jsonDecode(response.body);
+
+      List<PlaceCategory> placeCategories = [];
+      for (final each in detail["categories"]) {
+        IconMap icon = IconMap(each['icon']['prefix'], each['icon']['suffix']);
+        PlaceCategory placeCategory = PlaceCategory(each["name"], icon);
+        placeCategories.add(placeCategory);
+      }
+      Location location = Location(
+          detail['location']['address'],
+          detail['location']['country'],
+          detail['location']['cross_street'],
+          detail['location']['formatted_address'],
+          detail['location']['locality'],
+          detail['location']['neighborhood'],
+          detail['location']['postcode'],
+          detail['location']['region']);
+
+      placeDetails = PlaceDetails(
+        detail['name'],
+        detail['photo'],
+        detail['rating'],
+        placeCategories,
+        detail['fsq_id'],
+        detail['link'],
+        location,
+      );
+      print('${placeDetails}');
+    }
+    return placeDetails;
   }
 }
