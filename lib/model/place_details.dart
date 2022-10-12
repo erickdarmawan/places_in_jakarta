@@ -8,6 +8,8 @@ class PlaceDetails {
   String fsq_id;
   String link;
   Location? location;
+
+  var icon;
   PlaceDetails(
     this.name,
     this.photo,

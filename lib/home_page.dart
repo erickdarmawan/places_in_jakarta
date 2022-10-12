@@ -1,4 +1,3 @@
-// import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:places_in_jakarta/remote_service.dart';
 import 'package:places_in_jakarta/model/places.dart';
@@ -16,7 +15,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.grey.shade900,
       appBar: AppBar(
-        backgroundColor: Colors.cyanAccent.withOpacity(0.2),
+        backgroundColor: Color.fromARGB(255, 9, 54, 54),
         title: Text('Places in Jakarta'),
         centerTitle: true,
       ),
@@ -33,7 +32,7 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Card(
                         child: Container(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -47,17 +46,27 @@ class _HomePageState extends State<HomePage> {
                                 // ),
                                 Align(
                                   alignment: Alignment.centerLeft,
-                                  child: TextButton(
-                                    child: getName(snapshot.data![index].name),
-                                    style: ButtonStyle(
-                                      foregroundColor:
-                                          MaterialStateProperty.all<Color>(
-                                              Colors.black),
+                                  child: Card(
+                                    shadowColor: Colors.black,
+                                    elevation: 1,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.lightGreen
+                                              .withOpacity(0.4)),
+                                      child: TextButton(
+                                        child:
+                                            getName(snapshot.data![index].name),
+                                        style: ButtonStyle(
+                                            // backgroundColor:
+                                            //     MaterialStateProperty.all<Color>(
+                                            //         Colors.green.withOpacity(0.6)),
+                                            ),
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, '/detail_page');
+                                        },
+                                      ),
                                     ),
-                                    onPressed: () {
-                                      Navigator.pushNamed(
-                                          context, '/detail_page');
-                                    },
                                   ),
                                 ),
                                 SizedBox(
@@ -103,7 +112,8 @@ class _HomePageState extends State<HomePage> {
 
   Text getName(String name) {
     return Text(name,
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold));
+        style: TextStyle(
+            fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black));
   }
 
   List<Row> getCategories(List<PlaceCategory> categories) {
