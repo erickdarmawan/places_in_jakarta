@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places_in_jakarta/page/detail_page.dart';
 import 'package:places_in_jakarta/remote_service.dart';
 import 'package:places_in_jakarta/model/places.dart';
 
@@ -30,65 +31,74 @@ class _HomePageState extends State<HomePage> {
                   itemBuilder: (BuildContext, index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Card(
-                        child: Container(
-                            padding: const EdgeInsets.all(10),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                getImage(snapshot.data?[index].photo),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                // Align(
-                                //   alignment: Alignment.centerLeft,
-                                //   child: getName(snapshot.data![index].name),
-                                // ),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Card(
-                                    shadowColor: Colors.black,
-                                    elevation: 1,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.lightGreen
-                                              .withOpacity(0.4)),
-                                      child: TextButton(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) {
+                              if (snapshot.hasData) {
+                                return DetailPage();
+                              }
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return CircularProgressIndicator();
+                              }
+                              if (snapshot.hasError) {
+                                return Text('Could not load page');
+                              }
+                              return Text('Error');
+                            },
+                          ));
+                        },
+                        child: Card(
+                          child: Container(
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  getImage(snapshot.data?[index].photo),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  // Align(
+                                  //   alignment: Alignment.centerLeft,
+                                  //   child: getName(snapshot.data![index].name),
+                                  // ),
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Card(
+                                      shadowColor: Colors.black,
+                                      elevation: 1,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.lightGreen
+                                                .withOpacity(0.4)),
                                         child:
                                             getName(snapshot.data![index].name),
-                                        style: ButtonStyle(
-                                            // backgroundColor:
-                                            //     MaterialStateProperty.all<Color>(
-                                            //         Colors.green.withOpacity(0.6)),
-                                            ),
-                                        onPressed: () {
-                                          Navigator.pushNamed(
-                                              context, '/detail_page');
-                                        },
                                       ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: getCategories(
-                                            snapshot.data![index].categories),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: getCategories(
+                                              snapshot.data![index].categories),
+                                        ),
                                       ),
-                                    ),
-                                    if (snapshot.data?[index].rating != null)
-                                      getRating(snapshot.data?[index].rating),
-                                  ],
-                                )
-                              ],
-                            )),
+                                      if (snapshot.data?[index].rating != null)
+                                        getRating(snapshot.data?[index].rating),
+                                    ],
+                                  )
+                                ],
+                              )),
+                        ),
                       ),
                     );
                   }),

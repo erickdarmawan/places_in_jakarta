@@ -12,7 +12,7 @@ class RemoteService {
     var uri = Uri.parse(
         'https://api.foursquare.com/v3/places/search?query=jakarta&fields=rating,name,photos,fsq_id,categories');
     var response = await client.get(uri, headers: requestHeaders);
-    //print('DEBUG BODY ${response.body}');
+    print('DEBUG BODY ${response.body}');
 
     if (response.statusCode == 200) {
       var place = json.decode(response.body);
