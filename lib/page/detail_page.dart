@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places_in_jakarta/model/model.dart';
-import 'package:places_in_jakarta/page/page.dart';
+
 import 'package:places_in_jakarta/remote_service.dart';
 
 class DetailPage extends StatelessWidget {
@@ -129,12 +129,6 @@ List<Text> getLocationList(Location? location) {
         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
     );
-    // if (location?.cross_street != null) {
-    //   Text(
-    //     location!.cross_street!,
-    //     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-    //   );
-    // }
   }
   return filteredLocationTextList;
 }

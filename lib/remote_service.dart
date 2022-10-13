@@ -22,13 +22,9 @@ class RemoteService {
       List<Place> placeList = [];
 
       for (var result in results) {
-        //List<Photo> photo = [];
         Photo? photo;
         List photoResult = result['photos'];
         if (photoResult.isNotEmpty) {
-          //photo = Photo(
-          //[0]['prefix'], result['photos'][0]['suffix']);
-          //photo = photoResult[0]['prefix'] + photoResult[0]['suffix'];
           photo = Photo(photoResult[0]['prefix'], photoResult[0]['suffix']);
         }
 
@@ -45,15 +41,15 @@ class RemoteService {
         }
 
         var place = Place(
-          result['name'], photo, result['rating'], categories,
+          result['name'],
+          photo,
+          result['rating'],
+          categories,
           result['fsq_id'],
-          // result['link'],
-          // result['location']
         );
         placeList.add(place);
       }
 
-      // print(placeList.map((e) => e.name));
       return placeList;
     } else {
       return [];

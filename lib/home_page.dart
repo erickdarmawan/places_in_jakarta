@@ -37,27 +37,6 @@ class _HomePageState extends State<HomePage> {
                           print('DEBUG press');
                           Navigator.pushNamed(context, DetailPage.routeName,
                               arguments: fsqId);
-
-                          // Navigator.of(
-                          //   context,
-                          // ).push(MaterialPageRoute(
-                          //   builder: (
-                          //     context,
-                          //   ) {
-
-                          //     if (snapshot.hasData) {
-                          //       return DetailPage();
-                          //     }
-                          //     if (snapshot.connectionState ==
-                          //         ConnectionState.waiting) {
-                          //       return CircularProgressIndicator();
-                          //     }
-                          //     if (snapshot.hasError) {
-                          //       return Text('${snapshot.hasError}');
-                          //     }
-                          //     return Text('Error');
-                          //   },
-                          // ));
                         },
                         child: Card(
                           child: Container(
@@ -171,11 +150,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-// void selectedItem(BuildContext context, int index) {
-//   switch (index) {
-//     case 1:
-//       Navigator.of(context)
-//           .push(MaterialPageRoute(builder: (context) => DetailPage()));
-//   }
-// }
