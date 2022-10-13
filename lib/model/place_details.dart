@@ -28,7 +28,7 @@ class Location {
   String? formatted_address;
   String? locality;
   List? neighborhood;
-  String postcode;
+  String? postcode;
   String? region;
   Location(
     this.address,

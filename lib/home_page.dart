@@ -33,21 +33,31 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) {
-                              if (snapshot.hasData) {
-                                return DetailPage();
-                              }
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return CircularProgressIndicator();
-                              }
-                              if (snapshot.hasError) {
-                                return Text('Could not load page');
-                              }
-                              return Text('Error');
-                            },
-                          ));
+                          var fsqId = snapshot.data![index].fsq_id;
+                          print('DEBUG press');
+                          Navigator.pushNamed(context, DetailPage.routeName,
+                              arguments: fsqId);
+
+                          // Navigator.of(
+                          //   context,
+                          // ).push(MaterialPageRoute(
+                          //   builder: (
+                          //     context,
+                          //   ) {
+
+                          //     if (snapshot.hasData) {
+                          //       return DetailPage();
+                          //     }
+                          //     if (snapshot.connectionState ==
+                          //         ConnectionState.waiting) {
+                          //       return CircularProgressIndicator();
+                          //     }
+                          //     if (snapshot.hasError) {
+                          //       return Text('${snapshot.hasError}');
+                          //     }
+                          //     return Text('Error');
+                          //   },
+                          // ));
                         },
                         child: Card(
                           child: Container(

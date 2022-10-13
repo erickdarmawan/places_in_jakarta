@@ -4,10 +4,12 @@ import 'package:places_in_jakarta/page/page.dart';
 import 'package:places_in_jakarta/remote_service.dart';
 
 class DetailPage extends StatelessWidget {
+  static const routeName = '/detail_page';
   const DetailPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final String fsqId = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 9, 54, 54),
@@ -18,7 +20,7 @@ class DetailPage extends StatelessWidget {
           centerTitle: true,
         ),
         body: FutureBuilder<PlaceDetails?>(
-            future: RemoteService().getPlaceDetails('4e2a764d7d8b7deda6c627e7'),
+            future: RemoteService().getPlaceDetails(fsqId),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return Center(child: Text('${snapshot.error}'));
@@ -44,14 +46,21 @@ class DetailPage extends StatelessWidget {
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
                               SizedBox(
-                                height: 10,
+                                height: 5,
                               ),
                               Column(
                                 children: getCategoriesList(
                                     snapshot.data?.categories),
                               ),
                               SizedBox(
-                                height: 30,
+                                height: 5,
+                              ),
+                              Divider(
+                                thickness: 1,
+                                color: Colors.black,
+                              ),
+                              SizedBox(
+                                height: 15,
                               ),
                               Container(
                                 decoration: BoxDecoration(
@@ -76,6 +85,23 @@ class DetailPage extends StatelessWidget {
                               SizedBox(
                                 height: 10,
                               ),
+                              Text(snapshot.data!.location!.cross_street
+                                  .toString()),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(snapshot.data!.location!.formatted_address
+                                  .toString()),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                  snapshot.data!.location!.locality.toString()),
+                              Text(snapshot.data!.location!.neighborhood
+                                  .toString()),
+                              Text(
+                                  snapshot.data!.location!.postcode.toString()),
+                              Text(snapshot.data!.location!.region.toString()),
                               if (snapshot.data?.rating != null)
                                 getRating(snapshot.data?.rating),
                               SizedBox(
@@ -97,10 +123,18 @@ class DetailPage extends StatelessWidget {
 List<Text> getLocationList(Location? location) {
   List<Text> filteredLocationTextList = [];
   if (location?.address != null) {
-    filteredLocationTextList.add(Text(
-      location!.address!,
-      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-    ));
+    filteredLocationTextList.add(
+      Text(
+        location!.address!,
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      ),
+    );
+    // if (location?.cross_street != null) {
+    //   Text(
+    //     location!.cross_street!,
+    //     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+    //   );
+    // }
   }
   return filteredLocationTextList;
 }
