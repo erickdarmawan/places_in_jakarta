@@ -57,19 +57,31 @@ class DetailPage extends StatelessWidget {
                               ),
                               Divider(
                                 thickness: 1,
-                                color: Colors.black,
+                                color: Colors.blueGrey,
                               ),
                               SizedBox(
                                 height: 15,
                               ),
                               Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.black45,
-                                ),
+                                    // color: Colors.black45,
+                                    ),
                                 child: getImage(snapshot.data!.photo),
                               ),
+                              SizedBox(height: 15),
+                              Divider(
+                                thickness: 1,
+                                color: Colors.blueGrey,
+                              ),
                               SizedBox(
-                                height: 20,
+                                height: 5,
+                              ),
+                              Text(
+                                snapshot.data!.location!.country.toString(),
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 10,
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,9 +91,8 @@ class DetailPage extends StatelessWidget {
                               SizedBox(
                                 height: 10,
                               ),
-                              Text(
-                                snapshot.data!.location!.country.toString(),
-                              ),
+                              Text(snapshot.data!.location!.formatted_address
+                                  .toString()),
                               SizedBox(
                                 height: 10,
                               ),
@@ -90,18 +101,14 @@ class DetailPage extends StatelessWidget {
                               SizedBox(
                                 height: 10,
                               ),
-                              Text(snapshot.data!.location!.formatted_address
-                                  .toString()),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                  snapshot.data!.location!.locality.toString()),
                               Text(snapshot.data!.location!.neighborhood
                                   .toString()),
+                              // Text(
+                              //     snapshot.data!.location!.locality.toString()),
+
                               Text(
                                   snapshot.data!.location!.postcode.toString()),
-                              Text(snapshot.data!.location!.region.toString()),
+                              // Text(snapshot.data!.location!.region.toString()),
                               if (snapshot.data?.rating != null)
                                 getRating(snapshot.data?.rating),
                               SizedBox(
