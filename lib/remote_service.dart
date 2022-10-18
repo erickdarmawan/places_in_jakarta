@@ -87,11 +87,11 @@ class RemoteService {
           detail['location']['postcode'],
           detail['location']['region']);
 
-      var photoListed = detail['photos'] as List;
+      final List photoList = detail['photos'] as List;
 
-      List<PhotoClass> photos = [];
-      for (var each in photoListed) {
-        final photo = PhotoClass(each['prefix'], each['suffix']);
+      List<Photo> photos = [];
+      for (var each in photoList) {
+        final photo = Photo(each['prefix'], each['suffix']);
         photos.add(photo);
       }
       placeDetails = PlaceDetails(

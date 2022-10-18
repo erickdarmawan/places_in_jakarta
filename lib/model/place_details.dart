@@ -2,7 +2,7 @@ import 'package:places_in_jakarta/model/model.dart';
 
 class PlaceDetails {
   String name;
-  List<PhotoClass> photos;
+  List<Photo> photos;
   double? rating;
   List<PlaceCategory> categories;
   String fsq_id;
@@ -18,16 +18,6 @@ class PlaceDetails {
     this.link,
     this.location,
   );
-}
-
-class PhotoClass {
-  String prefix;
-  String suffix;
-  PhotoClass(this.prefix, this.suffix);
-
-  String constructImageUrl() {
-    return prefix + '400x500' + suffix;
-  }
 }
 
 class Location {

@@ -198,10 +198,11 @@ class DetailPage extends StatelessWidget {
 
 List<Text> getLocationList(Location? location) {
   List<Text> filteredLocationTextList = [];
-  if (location?.address != null) {
+  final address = location?.address;
+  if (address != null) {
     filteredLocationTextList.add(
       Text(
-        location!.address!,
+        address,
         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
     );
@@ -253,8 +254,9 @@ List<Row> getCategoriesList(List<PlaceCategory>? categories) {
       .toList();
 }
 
-Image getImage(PhotoClass? photos) {
-  return photos != null
-      ? Image(height: 300, image: NetworkImage(photos.constructImageUrl()))
+Image getImage(Photo? photo) {
+  final imageUrl = photo?.constructImageUrl();
+  return imageUrl != null
+      ? Image(height: 300, image: NetworkImage(imageUrl))
       : Image.asset('asset/placeholderImage.png', height: 300);
 }

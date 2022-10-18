@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
                       child: ElevatedButton(
                         onPressed: () {
                           var fsqId = snapshot.data![index].fsq_id;
-                          print('DEBUG press');
+
                           Navigator.pushNamed(context, DetailPage.routeName,
                               arguments: fsqId);
                         },
