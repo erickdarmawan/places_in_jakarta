@@ -5,13 +5,11 @@ import 'home_page.dart';
 
 void main() {
   runApp(const MyApp());
-  // RemoteService().getPlaceDetails('4e2a764d7d8b7deda6c627e7');
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
