@@ -10,7 +10,7 @@ class RemoteService {
     };
     var client = http.Client();
     var uri = Uri.parse(
-        'https://api.foursquare.com/v3/places/search?query=jakarta&fields=rating,name,photos,fsq_id,categories');
+        'https://api.foursquare.com/v3/places/search?query=jakarta&fields=rating,name,photos,fsq_id,categories,location');
     var response = await client.get(uri, headers: requestHeaders);
     print('DEBUG BODY ${response.body}');
 
@@ -60,7 +60,8 @@ class RemoteService {
     String fsq_id,
   ) async {
     var client = http.Client();
-    var uri = Uri.parse('https://api.foursquare.com/v3/places/${fsq_id}');
+    var uri = Uri.parse(
+        'https://api.foursquare.com/v3/places/${fsq_id}?fields=rating,name,photos,fsq_id,categories,location');
     Map<String, String> requestHeaders = {
       'Authorization': 'fsq3Tz0b7lh6LtcyoIl2kbZFHMuAxGaAXs9veBuPglC2LU8='
     };
@@ -86,16 +87,23 @@ class RemoteService {
           detail['location']['postcode'],
           detail['location']['region']);
 
+      var photoListed = detail['photos'] as List;
+
+      List<PhotoClass> photos = [];
+      for (var each in photoListed) {
+        final photo = PhotoClass(each['prefix'], each['suffix']);
+        photos.add(photo);
+      }
       placeDetails = PlaceDetails(
         detail['name'],
-        detail['photo'],
+        photos,
         detail['rating'],
         placeCategories,
         detail['fsq_id'],
         detail['link'],
         location,
       );
-      print('${placeDetails}');
+      print('${photos}');
     }
     return placeDetails;
   }

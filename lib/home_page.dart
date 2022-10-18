@@ -49,22 +49,17 @@ class _HomePageState extends State<HomePage> {
                                   SizedBox(
                                     height: 5,
                                   ),
-                                  // Align(
-                                  //   alignment: Alignment.centerLeft,
-                                  //   child: getName(snapshot.data![index].name),
-                                  // ),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Card(
-                                      shadowColor: Colors.black,
-                                      elevation: 1,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.lightGreen
-                                                .withOpacity(0.4)),
-                                        child:
-                                            getName(snapshot.data![index].name),
-                                      ),
+                                  Card(
+                                    shadowColor: Colors.black,
+                                    elevation: 1,
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.4)),
+                                      child: Align(
+                                          alignment: Alignment.center,
+                                          child: getName(
+                                              snapshot.data![index].name)),
                                     ),
                                   ),
                                   SizedBox(
@@ -112,7 +107,10 @@ class _HomePageState extends State<HomePage> {
   Text getName(String name) {
     return Text(name,
         style: TextStyle(
-            fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black));
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Colors.black,
+        ));
   }
 
   List<Row> getCategories(List<PlaceCategory> categories) {

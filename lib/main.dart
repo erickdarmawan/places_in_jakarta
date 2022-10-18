@@ -5,7 +5,6 @@ import 'home_page.dart';
 
 void main() {
   runApp(const MyApp());
-  // RemoteService().getPlaceDetails('4e2a764d7d8b7deda6c627e7');
 }
 
 class MyApp extends StatelessWidget {

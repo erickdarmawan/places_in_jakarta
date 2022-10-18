@@ -4,15 +4,13 @@ class Place {
   double? rating;
   List<PlaceCategory> categories;
   String fsq_id;
-  // String link;
-  // String location;
+
   Place(
     this.name,
     this.photo,
     this.rating,
     this.categories,
     this.fsq_id,
-    // this.link, this.location
   );
 }
 
