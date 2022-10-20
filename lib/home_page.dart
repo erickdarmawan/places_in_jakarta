@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
                   itemBuilder: (BuildContext, index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: ElevatedButton(
+                      child: OutlinedButton(
                         onPressed: () {
                           var fsqId = snapshot.data![index].fsq_id;
 
