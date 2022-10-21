@@ -61,7 +61,7 @@ class RemoteService {
   ) async {
     var client = http.Client();
     var uri = Uri.parse(
-        'https://api.foursquare.com/v3/places/${fsq_id}?fields=rating,name,photos,fsq_id,categories,location');
+        'https://api.foursquare.com/v3/places/${fsq_id}?fields=rating,name,photos,fsq_id,categories,location,link');
     Map<String, String> requestHeaders = {
       'Authorization': 'fsq3Tz0b7lh6LtcyoIl2kbZFHMuAxGaAXs9veBuPglC2LU8='
     };

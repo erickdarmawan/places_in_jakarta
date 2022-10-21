@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
             return Center(
               child: ListView.builder(
                   shrinkWrap: true,
-                  itemCount: snapshot.data!.length,
+                  itemCount: snapshot.data?.length,
                   itemBuilder: (BuildContext, index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -58,8 +58,8 @@ class _HomePageState extends State<HomePage> {
                                           color: Colors.grey.withOpacity(0.4)),
                                       child: Align(
                                           alignment: Alignment.center,
-                                          child: getName(
-                                              snapshot.data![index].name)),
+                                          child: getNameText(
+                                              snapshot.data?[index].name)),
                                     ),
                                   ),
                                   SizedBox(
@@ -72,8 +72,9 @@ class _HomePageState extends State<HomePage> {
                                         child: Row(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
-                                          children: getCategories(
-                                              snapshot.data![index].categories),
+                                          children: getCategories(snapshot
+                                                  .data?[index].categories ??
+                                              []),
                                         ),
                                       ),
                                       if (snapshot.data?[index].rating != null)
@@ -100,12 +101,13 @@ class _HomePageState extends State<HomePage> {
 
   Image getImage(Photo? photo) {
     return photo != null
-        ? Image(height: 300, image: NetworkImage(photo!.constructImageUrl()))
+        ? Image(height: 300, image: NetworkImage(photo.constructImageUrl()))
         : Image.asset('asset/placeholderImage.png', height: 300);
   }
 
-  Text getName(String name) {
-    return Text(name,
+  Text getNameText(String? name) {
+    final String textContent = name != null ? name.toString() : '';
+    return Text(textContent,
         style: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
