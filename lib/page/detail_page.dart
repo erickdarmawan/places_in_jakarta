@@ -51,11 +51,7 @@ class DetailPage extends StatelessWidget {
                               SizedBox(
                                 height: 15,
                               ),
-                              Text(
-                                snapshot.data!.name,
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
+                              nameText(snapshot.data?.name),
                               SizedBox(
                                 height: 5,
                               ),
@@ -72,10 +68,7 @@ class DetailPage extends StatelessWidget {
                               SizedBox(
                                 height: 15,
                               ),
-                              Text(
-                                snapshot.data!.location!.country.toString(),
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
+                              countryText(snapshot.data?.location?.country),
                               SizedBox(
                                 height: 10,
                               ),
@@ -111,9 +104,10 @@ class DetailPage extends StatelessWidget {
                                         ),
                                         Container(
                                           width: 300,
-                                          child: Text(snapshot
-                                              .data!.location!.formatted_address
-                                              .toString()),
+                                          child: formattedAddressText(snapshot
+                                              .data
+                                              ?.location
+                                              ?.formatted_address),
                                         ),
                                       ],
                                     ),
@@ -144,8 +138,8 @@ class DetailPage extends StatelessWidget {
                                     SizedBox(
                                       width: 10,
                                     ),
-                                    Text(snapshot.data!.location!.postcode
-                                        .toString()),
+                                    postCodeText(
+                                        snapshot.data?.location?.postcode),
                                   ],
                                 ),
                               ),
@@ -159,8 +153,7 @@ class DetailPage extends StatelessWidget {
                                   SizedBox(
                                     width: 27,
                                   ),
-                                  Text(snapshot.data!.location!.region
-                                      .toString()),
+                                  regionText(snapshot.data?.location?.region)
                                 ],
                               ),
                               SizedBox(
@@ -178,9 +171,7 @@ class DetailPage extends StatelessWidget {
                                     ),
                                     Container(
                                       width: 200,
-                                      child: Text(
-                                          'https://api.foursquare.com/' +
-                                              snapshot.data!.link.toString()),
+                                      child: linkText(snapshot.data?.link),
                                     ),
                                   ],
                                 ),
@@ -228,6 +219,11 @@ Container getRating(double? rating) {
   );
 }
 
+Text nameText(String? name) {
+  return Text(name != null ? name.toString() : '',
+      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold));
+}
+
 List<Row> getCategoriesList(List<PlaceCategory>? categories) {
   if (categories == null) {
     return [];
@@ -254,9 +250,40 @@ List<Row> getCategoriesList(List<PlaceCategory>? categories) {
       .toList();
 }
 
+// null safety
+
 Image getImage(Photo? photo) {
   final imageUrl = photo?.constructImageUrl();
   return imageUrl != null
       ? Image(height: 300, image: NetworkImage(imageUrl))
       : Image.asset('asset/placeholderImage.png', height: 300);
+}
+
+Text countryText(String? country) {
+  return Text(
+    country != null ? country.toString() : '',
+  );
+}
+
+Text regionText(String? region) {
+  return Text(region != null ? region.toString() : '');
+}
+
+Text linkText(String? link) {
+  final String linkString = link != null
+      ? ('https://api.foursquare.com' + link.toString())
+      : 'No Link Provided';
+  return Text(linkString);
+}
+
+Text postCodeText(String? postcode) {
+  return Text(
+    postcode != null ? postcode.toString() : '',
+  );
+}
+
+Text formattedAddressText(String? formatted_adress) {
+  return Text(
+    formatted_adress != null ? formatted_adress.toString() : '',
+  );
 }
