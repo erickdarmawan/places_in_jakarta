@@ -3,6 +3,7 @@ import 'package:places_in_jakarta/page/detail_page.dart';
 import 'package:places_in_jakarta/remote_service.dart';
 import 'package:places_in_jakarta/model/places.dart';
 
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -47,7 +48,7 @@ class _HomePageState extends State<HomePage> {
                                 children: [
                                   getImage(snapshot.data?[index].photo),
                                   SizedBox(
-                                    height: 5,
+                                    height: 15,
                                   ),
                                   Card(
                                     shadowColor: Colors.black,
@@ -63,7 +64,7 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 5,
+                                    height: 15,
                                   ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -141,10 +142,16 @@ class _HomePageState extends State<HomePage> {
   Container getRating(double? rating) {
     return Container(
       alignment: Alignment.center,
-      padding: EdgeInsets.all(3),
-      child: Text(
-        rating != null ? rating.toString() : '',
-        style: TextStyle(fontWeight: FontWeight.bold),
+      padding: const EdgeInsets.all(3),
+      child: Row(
+        children: [
+          const Icon(Icons.star_border_sharp, color: Colors.yellowAccent,),
+          const SizedBox(width: 1,),
+          Text(
+            rating != null ? rating.toString() : '',
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ],
       ),
       decoration: BoxDecoration(color: Colors.green.withOpacity(0.5)),
     );

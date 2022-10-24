@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:places_in_jakarta/model/model.dart';
+
 
 class RemoteService {
   Future<List<Place>> getPlaceList() async {
@@ -12,12 +12,12 @@ class RemoteService {
     var uri = Uri.parse(
         'https://api.foursquare.com/v3/places/search?query=jakarta&fields=rating,name,photos,fsq_id,categories,location');
     var response = await client.get(uri, headers: requestHeaders);
-    print('DEBUG BODY ${response.body}');
+  
 
     if (response.statusCode == 200) {
       var place = json.decode(response.body);
 
-      //print(place);
+     
       var results = place['results'] as List;
       List<Place> placeList = [];
 
@@ -102,8 +102,7 @@ class RemoteService {
         detail['fsq_id'],
         detail['link'],
         location,
-      );
-      print('${photos}');
+      );     
     }
     return placeDetails;
   }

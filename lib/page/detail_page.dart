@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:places_in_jakarta/model/model.dart';
-import 'package:places_in_jakarta/page/page.dart';
 import 'package:places_in_jakarta/remote_service.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
 
 class DetailPage extends StatelessWidget {
   static const routeName = '/detail_page';
@@ -10,6 +11,7 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String fsqId = ModalRoute.of(context)!.settings.arguments as String;
+  
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 9, 54, 54),
@@ -26,9 +28,10 @@ class DetailPage extends StatelessWidget {
                 return Center(child: Text('${snapshot.error}'));
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
               if (snapshot.hasData) {
+                
                 return Center(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -36,6 +39,7 @@ class DetailPage extends StatelessWidget {
                     child: ListView.builder(
                         itemCount: 1,
                         itemBuilder: (BuildContext, index) {
+
                           return Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -53,13 +57,14 @@ class DetailPage extends StatelessWidget {
                               ),
                               nameText(snapshot.data?.name),
                               SizedBox(
-                                height: 5,
+                                height: 15,
                               ),
                               Container(
                                 child: getImage(snapshot.data!.photos.isNotEmpty
                                     ? snapshot.data?.photos[0]
                                     : null),
                               ),
+                              SizedBox(height: 15),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children:
@@ -75,10 +80,10 @@ class DetailPage extends StatelessWidget {
                               if (snapshot.data?.rating != null)
                                 Row(
                                   children: [
+                                    Text('Rating: ${snapshot.data?.rating}'),
+                                    SizedBox(width: 10,),
                                     getRating(snapshot.data?.rating),
-                                    Container(
-                                      color: Colors.white,
-                                    )
+
                                   ],
                                 ),
                               Divider(thickness: 1, color: Colors.blueGrey),
@@ -201,23 +206,18 @@ List<Text> getLocationList(Location? location) {
   return filteredLocationTextList;
 }
 
-Container getRating(double? rating) {
-  return Container(
-    alignment: Alignment.topCenter,
-    padding: EdgeInsets.all(3),
-    child: Column(
-      children: [
-        Text(
-          rating != null ? rating.toString() : '',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-        ),
-      ],
-    ),
-    decoration: BoxDecoration(
-      color: Colors.green.withOpacity(0.5),
-    ),
-  );
-}
+RatingBar getRating(double? rating){
+  return RatingBar.builder(
+    itemBuilder: (context, _)  => Icon(Icons.star, color: Colors.amber,),
+    tapOnlyMode: true, 
+    itemCount: 10,
+    initialRating: rating != null ? rating : 0.0,
+    minRating: 0,
+    maxRating: 10,
+    itemSize: 20,
+    allowHalfRating: true,
+    onRatingUpdate: (rating) {});
+  }
 
 Text nameText(String? name) {
   return Text(name != null ? name.toString() : '',
@@ -250,8 +250,6 @@ List<Row> getCategoriesList(List<PlaceCategory>? categories) {
       .toList();
 }
 
-// null safety
-
 Image getImage(Photo? photo) {
   final imageUrl = photo?.constructImageUrl();
   return imageUrl != null
@@ -278,7 +276,7 @@ Text linkText(String? link) {
 
 Text postCodeText(String? postcode) {
   return Text(
-    postcode != null ? postcode.toString() : '',
+    postcode != null ? postcode.toString() : 'Postcode could not be found.',
   );
 }
 
